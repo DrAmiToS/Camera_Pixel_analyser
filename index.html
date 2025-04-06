@@ -1,0 +1,111 @@
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Детектор битых пикселей</title>
+    <link rel="stylesheet" href="styles.css">
+    <script type="importmap">
+    {
+        "imports": {
+            "@pixelanalyzer/": "./modules/",
+            "@libs/": "./libs/"
+        }
+    }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>Детектор битых пикселей</h1>
+        
+        <div class="settings-panel">
+            <div class="settings-container">
+                <div class="settings-left">
+                    <div class="mode-selector">
+                        <h3>Режим анализа:</h3>
+                        <select id="analysisMode">
+                            <option value="hot">Поиск горячих пикселей (чёрный фон)</option>
+                            <option value="dead">Поиск битых пикселей (белый фон)</option>
+                        </select>
+                    </div>
+                    
+                    <div class="threshold-settings">
+                        <h3>Настройки:</h3>
+                        <div>
+                            <label>Порог яркости: <input type="range" id="thresholdValue" min="10" max="100" value="30"></label>
+                            <span id="thresholdDisplay">30</span>
+                        </div>
+                        <div>
+                            <label>Размер кластера: <input type="range" id="clusterSize" min="1" max="5" value="2"></label>
+                            <span id="clusterDisplay">2</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="settings-right">
+                    <div class="format-info">
+                        <h3>Поддерживаемые форматы:</h3>
+                        <p>• JPG, JPEG</p>
+                        <p>• PNG</p>
+                        <div class="format-note">
+                            <p>* RAW форматы не поддерживаются.</p>
+                            <p>* Перед загрузкой преобразуйте RAW в один из поддерживаемых форматов.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="help-buttons">
+                <button id="hotPixelHelp">Инструкция по поиску горячих пикселей</button>
+                <button id="deadPixelHelp">Инструкция по поиску битых пикселей</button>
+            </div>
+
+            <div class="analysis-controls">
+                <button id="analyzeButton" class="primary-button">Выполнить анализ</button>
+                <button id="downloadReport" class="secondary-button" disabled>Скачать отчёт</button>
+            </div>
+        </div>
+
+        <div class="analysis-area">
+            <div class="upload-zone" id="uploadZone">
+                <div class="upload-content">
+                    <svg width="64" height="64" viewBox="0 0 24 24">
+                        <path fill="currentColor" d="M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z" />
+                    </svg>
+                    <p>Перетащите файл сюда или нажмите для выбора</p>
+                    <input type="file" id="imageInput" accept=".jpg,.jpeg,.cr2,.nef,.arw,.dng,.raf,.rw2,.orf,.pef,.srw,.png,.bmp,.webp,.tiff,.tif" class="file-input">
+                </div>
+                <div class="preview" id="imagePreview"></div>
+            </div>
+
+            <div class="results-zone">
+                <h2>Результаты анализа</h2>
+                <div class="stats" id="results"></div>
+                <div class="annotated-preview" id="annotatedPreview"></div>
+            </div>
+        </div>
+    </div>
+    
+    <div id="loadingOverlay" class="loading-overlay">
+        <div class="loading-content">
+            <div class="spinner"></div>
+            <div id="loadingText">Идет анализ...</div>
+        </div>
+    </div>
+
+    <div id="imageModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div class="modal-controls">
+                <button id="downloadImage">Скачать</button>
+            </div>
+            <div class="modal-image-container">
+                <div class="panzoom" id="panzoomContainer">
+                    <img id="modalImage" src="" alt="Annotated image">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="libs/panzoom.min.js"></script>
+    <script type="module" src="script.js"></script>
+</body>
+</html>
