@@ -277,7 +277,7 @@ class PixelAnalyzer {
         let watermarkX = canvas.width - 150;
         let watermarkY = canvas.height - 30;
         
-        ctx.fillText('PixelAnalyse.ru', watermarkX, watermarkY);
+        ctx.fillText('https://dramitos.github.io/Camera_Pixel_analyser', watermarkX, watermarkY);
 
         // Display annotated image
         const annotatedPreview = document.getElementById('annotatedPreview');
@@ -388,7 +388,7 @@ class PixelAnalyzer {
     downloadReport() {
         const dominantColor = this.getDominantColor(this.originalImageData.imageData);
         
-        let report = 'Отчёт об анализе пикселей (PixelAnalyse.ru)\n';
+        let report = 'Отчёт об анализе пикселей\n';
         report += '=====================================\n\n';
         report += `Режим анализа: ${this.mode === 'hot' ? 'Горячие пиксели' : 'Битые пиксели'}\n`;
         report += `Порог чувствительности: ${this.threshold}\n`;
@@ -400,7 +400,7 @@ class PixelAnalyzer {
         report += `Всего пикселей: ${this.imageData.totalPixels}\n`;
         report += `Дефектных областей: ${this.imageData.defectCount}\n\n`;
 
-        report += 'Отчёт сгенерирован: PixelAnalyse.ru';
+        report += 'Отчёт сгенерирован: https://dramitos.github.io/Camera_Pixel_analyser';
 
         const blob = new Blob([report], { type: 'text/plain' });
         const url = URL.createObjectURL(blob);
